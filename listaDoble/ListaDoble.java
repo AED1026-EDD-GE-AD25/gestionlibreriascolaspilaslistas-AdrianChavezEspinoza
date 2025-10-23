@@ -89,8 +89,36 @@ public class ListaDoble<T>{
      * @throws PosicionIlegalException
      */
 
-    public T remover(int pos) throws PosicionIlegalException{
+    public void remover(int posi) throws PosicionIlegalException{
         
+        if(posi >= 0 && posi < tamanio){
+            if(posi == 0){
+                cabeza = cabeza.getSiguiente();
+                cabeza.setAnterior(null);
+            }else{
+                if(posi == tamanio-1){
+                    Nodo<T> aux = cabeza;
+                    for(int i = 0; i <= posi-2; i++){
+                        aux = aux.getSiguiente();
+                    }
+                    Nodo<T> prox = aux.getSiguiente();
+                    // prox.getSiguiente().setAnterior(aux);
+                    aux.setSiguiente(prox.getSiguiente());
+                }else{
+                    Nodo<T> aux = cabeza;
+                    for(int i = 0; i <= posi-2; i++){
+                        aux = aux.getSiguiente();
+                    }
+                    Nodo<T> prox = aux.getSiguiente();
+                    prox.getSiguiente().setAnterior(aux);
+                    aux.setSiguiente(prox.getSiguiente());
+                }
+            }
+            tamanio--;
+
+        }else{
+            throw new PosicionIlegalException();
+        }
         
     }
      /*
@@ -110,7 +138,47 @@ public class ListaDoble<T>{
       */
      public int remover(T valor) throws PosicionIlegalException{
         
-       
+        Nodo<T> aux = cabeza;
+        int posi = -1;
+        for (int i = 0; i < tamanio; i++){
+            if(aux == valor){
+                posi = i;
+                break;
+            }else{
+                aux = aux.getSiguiente();
+            }
+        }
+
+        if(posi >= 0 && posi < tamanio){
+            if(posi == 0){
+                cabeza = cabeza.getSiguiente();
+                cabeza.setAnterior(null);
+            }else{
+                if(posi == tamanio-1){
+                    Nodo<T> aux2 = cabeza;
+                    for(int i = 0; i <= posi-2; i++){
+                        aux2 = aux2.getSiguiente();
+                    }
+                    Nodo<T> prox = aux2.getSiguiente();
+                    // prox.getSiguiente().setAnterior(aux2);
+                    aux2.setSiguiente(prox.getSiguiente());
+                }else{
+                    Nodo<T> aux2 = cabeza;
+                    for(int i = 0; i <= posi-2; i++){
+                        aux2 = aux2.getSiguiente();
+                    }
+                    Nodo<T> prox = aux2.getSiguiente();
+                    prox.getSiguiente().setAnterior(aux2);
+                    aux2.setSiguiente(prox.getSiguiente());
+                }
+            }
+            tamanio--;
+
+        }else{
+            throw new PosicionIlegalException();
+        }
+
+        return posi;
         
     }
 
@@ -142,6 +210,7 @@ public class ListaDoble<T>{
         }
         
     }
+
     public void limpiar(){
         cabeza = null;
         tamanio = 0;
@@ -153,7 +222,16 @@ public class ListaDoble<T>{
 
     @Override
     public String toString() {
-       
+        
+        String lista = "";
+        Nodo<T> aux = cabeza;
+
+        for (int i = 0; i < tamanio; i++){
+            lista = (String) aux.getValor() + " ";
+            aux = aux.getSiguiente();
+        }
+
+        return lista;
 
     }
     /*
@@ -163,7 +241,17 @@ public class ListaDoble<T>{
      */
     public boolean contiene(T valor){
         
+        Nodo<T> aux = cabeza;
+        for (int i = 0; i < tamanio; i++){
+            if(aux == valor){
+                return true;
+            }else{
+                aux = aux.getSiguiente();
+            }
+        }
+
+        return false;
+
     }
-    
     
 }

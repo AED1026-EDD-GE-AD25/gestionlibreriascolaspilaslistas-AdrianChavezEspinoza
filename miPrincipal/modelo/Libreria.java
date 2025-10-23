@@ -47,7 +47,7 @@ public class Libreria{
         
 
     }
-    public voic obtenerLibroPila(){
+    public void obtenerLibroPila(){
         
 
 

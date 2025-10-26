@@ -109,4 +109,19 @@ public class Lista<T> {
         tamanio = 0;
     }
 
+    public boolean contiene(T valor){
+        
+        Nodo<T> aux = cabeza;
+        for (int i = 0; i < tamanio; i++){
+            if(aux == valor){
+                return true;
+            }else{
+                aux = aux.getSiguiente();
+            }
+        }
+
+        return false;
+
+    }
+
 }

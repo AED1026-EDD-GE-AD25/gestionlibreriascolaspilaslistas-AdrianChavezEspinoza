@@ -1,5 +1,7 @@
 package miPrincipal.modelo;
 
+import java.util.Objects;
+
 public class Libro {
     
     private String titulo;
@@ -33,6 +35,5 @@ public class Libro {
     public String toString() {
         return titulo + " " + autor + " " + isbn;
     }
-
     
 }

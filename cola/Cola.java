@@ -28,9 +28,10 @@ public class Cola<T> {
         nuevo.setValor(valor);
         if(esVacia()){
             cabeza = nuevo;
+            cola = nuevo;
         }else{
-            nuevo.setSiguiente(cabeza);
-            cabeza = nuevo;
+            cola.setSiguiente(nuevo);
+            cola = nuevo;
         }
 
         tamanio++;

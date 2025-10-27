@@ -56,7 +56,6 @@ public class MenuOpciones{
             libreria.agregarLibroCola(libroReservar);  
         }
         
-        
     }
 
     public static Libro obtenerLibroCola(){

@@ -31,59 +31,56 @@ public class Libreria{
         
     }
 
-    public Lista obtenerLibros(){
+    public ListaDoble<Libro> obtenerLibros(){
        
-		Lista<Libro> lista = new Lista<>();
+		// Lista<Libro> lista = new Lista<>();
 		
 		// for(int i = 0; i < listaLibros.getTamanio(); i++){
 		// 	lista.agregar(listaLibros.getValor(i));
 		// }
 
-		// return lista;
-		try {
-			// Obtenemos el tamaño una sola vez
-			int tamanio = listaLibros.getTamanio(); 
+		// try {
+		// 	int tamanio = listaLibros.getTamanio(); 
 			
-			for(int i = 0; i < tamanio; i++){
-				// Si el índice es ilegal, el catch lo atrapará.
-				lista.agregar(listaLibros.getValor(i));
-			}
+		// 	for(int i = 0; i < tamanio; i++){
+		// 		lista.agregar(listaLibros.getValor(i));
+		// 	}
 
-		} catch (PosicionIlegalException e) {
-			// Capturamos la excepción y la tragamos (swallowing).
-			// Esto es MALO, pero necesario si no podemos modificar el test o el 'throws'.
-			// Opcional: registrar el error, pero no relanzar.
-			System.err.println("Error interno al obtener libro: " + e.getMessage());
-			
-			// Devolveremos la lista parcial o vacía.
-		}
+		// } catch (PosicionIlegalException e) {
+		// 	System.out.println("Error interno al obtener libro: " + e.getMessage());
+		// }
 
-		return lista;
+		return listaLibros;
         
     }
 
     public boolean agregarLibroCola(Libro libro){
 
-        if(listaLibros.contiene(libro)){
-            colaLibros.encolar(libro);
-            System.out.println("Se ha reservado el libro " + libro);
-            return true;
-        }else{
-            System.out.println("No se ha encontrado el libro " + libro);
-            return false;
-        }
+		colaLibros.encolar(libro);
+		return true;
         
     }
 
     public Libro obtenerLibroCola(){
 
-		return colaLibros.frente();
+		if(colaLibros.esVacia()){
+			return null;
+		}
+
+		Libro libro = colaLibros.frente();
+		colaLibros.desencolar();
+
+		return libro;
 
     }
 
     public Libro obtenerLibroPila(){
         
-		return null;
+		if(pilaLibrosEliminados.esVacia()){
+			return null;
+		}else{
+			return pilaLibrosEliminados.cima();
+		}
 
     }
 
@@ -103,48 +100,54 @@ public class Libreria{
 
     }
 
-    public boolean devolverLibro(Libro libro){
+    public boolean devolverLibro(Libro libro) throws PosicionIlegalException{
 
-		Cola<Libro> aux = new Cola<>();
-		boolean libroEncontrado = false;
+		if(libro == null){
+			return false;
+		}
 
-		while (!colaLibros.esVacia()) {
-			Libro libroActual = colaLibros.frente();
-			colaLibros.desencolar();
-			if (libroActual.equals(libro) && !libroEncontrado) {
-				libroEncontrado = true;
-			} else {
-				aux.encolar(libroActual);
+		int indice = -1;
+
+		for(int i = 0; i < listaLibros.getTamanio(); i++){
+			if(listaLibros.getValor(i).equals(libro)){
+				indice = i;
+				break;
 			}
 		}
 
-		while (!aux.esVacia()) {
-			colaLibros.encolar(aux.frente());
-			aux.desencolar();
+		if(indice != -1){
+			listaLibros.remover(indice);
+			return true;
 		}
 
-		return libroEncontrado;
+		return false;
+
 	}
 
     public Libro eliminarUltimoLibro() throws PosicionIlegalException{
 
-		Libro elim = new Libro();
+		if(listaLibros.getTamanio() == 0){
+			throw new PosicionIlegalException();
+		}
 
-		elim = listaLibros.getValor(listaLibros.getTamanio()-1);
-		listaLibros.remover(listaLibros.getTamanio()-1);
+		int ultimo = listaLibros.getTamanio()-1;
+
+		Libro elim = listaLibros.getValor(ultimo);
+		listaLibros.remover(ultimo);
 		pilaLibrosEliminados.apilar(elim);
-		
 		return elim;
+
     }
 
     public Libro deshacerEliminarLibro(){
         
-		Libro recu = new Libro();
+		if(pilaLibrosEliminados.esVacia()){
+			return null;
+		}
 
-		recu = pilaLibrosEliminados.cima();
+		Libro recu = pilaLibrosEliminados.cima();
 		pilaLibrosEliminados.retirar();
 		listaLibros.agregar(recu);
-		
 		return recu;
 
     }
@@ -163,21 +166,19 @@ public class Libreria{
 
     }
 
-	public boolean contiene(Libro libro) throws PosicionIlegalException{
-        
-        // for (int i = 0; i < listaLibros.getTamanio(); i++){
-        //     if(aux == listaLibros.getValor(i)){
-        //         return true;
-		// 	}
-        // }
+	// public boolean contiene(Libro libro) throws PosicionIlegalException{
 
-		for(int i = 0; i < listaLibros.getTamanio(); i++){
-			if(listaLibros.getValor(i).equals(libro)){
-				return true;
-			}
-		}
+	// 	if(libro == null){
+	// 		return false;
+	// 	}
 
-        return false;
+	// 	for(int i = 0; i < listaLibros.getTamanio(); i++){
+	// 		if(listaLibros.getValor(i).equals(libro)){
+	// 			return true;
+	// 		}
+	// 	}
 
-    }
+	// 	return false;
+
+    // }
 }

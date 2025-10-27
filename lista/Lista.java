@@ -113,7 +113,7 @@ public class Lista<T> {
         
         Nodo<T> aux = cabeza;
         for (int i = 0; i < tamanio; i++){
-            if(aux == valor){
+            if(aux.getValor().equals(valor)){
                 return true;
             }else{
                 aux = aux.getSiguiente();

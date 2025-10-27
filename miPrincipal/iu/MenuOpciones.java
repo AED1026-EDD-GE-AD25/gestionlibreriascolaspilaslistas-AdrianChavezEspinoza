@@ -37,7 +37,7 @@ public class MenuOpciones{
     public static void mostrarLibros() throws PosicionIlegalException{
 
         System.out.println("Lista de libros prestados:");
-        libreria.obtenerLibros();
+        libreria.obtenerLibros().toString();
 
     }
 
@@ -72,7 +72,6 @@ public class MenuOpciones{
             System.out.println(reservaLibros.frente());
             reservaLibros.desencolar();
         }
-        
 
     }
 
@@ -87,7 +86,7 @@ public class MenuOpciones{
         Pedido pedido=null;
         if (libroPedido!=null){
             pedido = libreria.crearPedido(libroPedido, new Fecha());
-            if (pedido !=null)
+            if (pedido != null)
                 System.out.println("Pedido creado exitosamente: "+pedido);
             else
                 System.out.println("No fue posible crear el pedido");

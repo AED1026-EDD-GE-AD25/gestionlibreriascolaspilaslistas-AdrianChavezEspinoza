@@ -166,19 +166,4 @@ public class Libreria{
 
     }
 
-	// public boolean contiene(Libro libro) throws PosicionIlegalException{
-
-	// 	if(libro == null){
-	// 		return false;
-	// 	}
-
-	// 	for(int i = 0; i < listaLibros.getTamanio(); i++){
-	// 		if(listaLibros.getValor(i).equals(libro)){
-	// 			return true;
-	// 		}
-	// 	}
-
-	// 	return false;
-
-    // }
 }

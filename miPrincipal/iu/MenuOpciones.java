@@ -83,7 +83,7 @@ public class MenuOpciones{
         System.out.print("Ingrese el ISBN del libro para el pedido:");
         String isbnPedido = scanner.nextLine();
         Libro libroPedido = libreria.crearLibro(tituloPedido, autorPedido, isbnPedido);
-        Pedido pedido=null;
+        Pedido pedido = null;
         if (libroPedido!=null){
             pedido = libreria.crearPedido(libroPedido, new Fecha());
             if (pedido != null)
